@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Herramientas del Valuador | EVMC & Mundo Valor</title>
+  <meta name="description" content="Plataforma de simuladores y herramientas interactivas de ingeniería de tasación, valuación industrial y estadística aplicada.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #070c18;
+      --bg-card: #0f172a;
+      --border-card: rgba(255, 255, 255, 0.12);
+      --royal-blue: #0070ba;
+      --accent-red: #991b1b;
+      --accent-red-hover: #b91c1c;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --font-title: 'Cinzel', serif;
+      --font-reading: 'Literata', Georgia, serif;
+      --font-ui: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: linear-gradient(rgba(7, 12, 24, 0.96), rgba(7, 12, 24, 0.98)), url('83615be8.png');
+      background-size: cover;
+      background-position: center center;
+      background-attachment: fixed;
+      color: var(--text-main);
+      font-family: var(--font-ui);
+      line-height: 1.6;
+      overflow-x: hidden;
+      text-align: justify;
+    }
+
+    .container { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 1.5rem; }
+
+    header {
+      background: rgba(7, 12, 24, 0.98);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-card);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 0.75rem 0;
+      text-align: left;
+    }
+
+    .nav-wrap { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; }
+    .brand-logo-left, .brand-logo-right { display: flex; align-items: center; text-decoration: none; }
+
+    .logo-container {
+      background: #ffffff;
+      padding: 6px 10px;
+      border-radius: 10px;
+      border: 2px solid var(--accent-red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+    .logo-container img { height: 50px; width: auto; object-fit: contain; display: block; }
+
+    .nav-center { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; justify-content: center; }
+    .nav-center a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: color 0.2s; }
+    .nav-center a:hover { color: #fca5a5; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.2rem;
+      border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer;
+      text-decoration: none; transition: all 0.2s ease; border: none; text-align: center;
+    }
+    .btn-red { background: linear-gradient(135deg, #7f1d1d, var(--accent-red)); color: #ffffff; box-shadow: 0 4px 15px rgba(153, 27, 27, 0.4); }
+    .btn-red:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(185, 28, 28, 0.6); background: linear-gradient(135deg, var(--accent-red), var(--accent-red-hover)); }
+    .btn-donate { background: linear-gradient(135deg, #1d4ed8, #2563eb); color: #ffffff; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4); border: 1px solid rgba(255, 255, 255, 0.25); }
+    .btn-donate:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6); }
+
+    .hero {
+      padding: 5rem 0 4.5rem;
+      background: radial-gradient(circle at 50% 10%, rgba(23, 37, 84, 0.5) 0%, transparent 80%);
+      border-bottom: 1px solid var(--border-card);
+      text-align: left;
+    }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 3.5rem; align-items: center; }
+    .badge-editorial {
+      display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(153, 27, 27, 0.15);
+      border: 1px solid rgba(153, 27, 27, 0.4); padding: 0.35rem 1rem; border-radius: 999px;
+      font-size: 0.8rem; font-weight: 700; color: #fca5a5; margin-bottom: 1.2rem; text-transform: uppercase; letter-spacing: 1px;
+    }
+    .hero-title { font-family: var(--font-title); font-size: clamp(2.2rem, 4.2vw, 3.4rem); line-height: 1.2; margin-bottom: 1.2rem; color: #ffffff; }
+    .hero-title span { color: #60a5fa; }
+    .hero-lead { font-family: var(--font-reading); font-size: 1.12rem; color: #cbd5e1; margin-bottom: 2rem; line-height: 1.8; text-align: justify; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .hero-banner-card {
+      background: linear-gradient(145deg, #1e293b, #0f172a);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 24px; padding: 1.5rem; text-align: center;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.85), 0 0 35px rgba(0, 112, 186, 0.25);
+    }
+    .hero-banner-card img { width: 100%; height: auto; border-radius: 14px; display: block; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+
+    .section-block { padding: 4.5rem 0; border-bottom: 1px solid var(--border-card); text-align: left; }
+    .section-head { text-align: center; margin-bottom: 3rem; }
+    .section-head h2 { font-family: var(--font-title); font-size: 2.2rem; color: #fff; margin-bottom: 0.5rem; }
+
+    .catalog-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; }
+    @media (max-width: 768px) { .catalog-grid { grid-template-columns: 1fr; } }
+
+    .catalog-card {
+      background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 16px;
+      padding: 2rem; display: flex; flex-direction: column; justify-content: space-between;
+      transition: all 0.25s ease; position: relative; overflow: hidden; text-align: left;
+    }
+    .catalog-card:hover { transform: translateY(-4px); border-color: var(--royal-blue); box-shadow: 0 10px 25px -5px rgba(0, 112, 186, 0.25); }
+    .item-badge {
+      position: absolute; top: 1.5rem; right: 1.5rem; background: rgba(0, 112, 186, 0.2);
+      color: #60a5fa; font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.7rem; border-radius: 999px; border: 1px solid rgba(0, 112, 186, 0.4);
+    }
+    .catalog-card h3 { font-size: 1.15rem; color: #fff; margin-bottom: 0.8rem; line-height: 1.3; padding-right: 4rem; }
+    .catalog-card p { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5; text-align: justify; }
+
+    .card-thumbnail {
+      width: 100%; height: 260px; background: #111827; border-radius: 10px; margin-bottom: 1.2rem;
+      display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.08); overflow: hidden; position: relative;
+    }
+    .card-thumbnail img {
+      max-width: 100%; max-height: 100%; width: auto; height: auto;
+      object-fit: contain; object-position: center; display: block; margin: auto;
+    }
+    .card-footer { display: flex; align-items: center; justify-content: flex-end; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 1.2rem; }
+
+    /* Author Section */
+    .author-card-centered {
+      background: linear-gradient(145deg, #1e293b, #0f172a); border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 24px; padding: 3rem 2.5rem; max-width: 850px; margin: 0 auto; text-align: center;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.85), 0 0 35px rgba(153, 27, 27, 0.15);
+    }
+    .author-photo-xl {
+      width: 200px; height: 200px; border-radius: 50%; border: 3px solid var(--accent-red);
+      padding: 5px; margin: 0 auto 1.5rem; overflow: hidden; background: #070c18; box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+    .author-photo-xl img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
+    .author-card-centered h3 { font-family: var(--font-title); font-size: 1.6rem; color: #fff; margin-bottom: 0.4rem; }
+    .author-card-centered .subtitle { color: #60a5fa; font-weight: 700; font-size: 0.95rem; margin-bottom: 1.5rem; }
+    .author-quote { font-family: var(--font-reading); font-size: 1.05rem; color: #cbd5e1; line-height: 1.8; font-style: italic; text-align: justify; }
+
+    footer { border-top: 1px solid var(--border-card); padding: 3rem 0; text-align: center; color: var(--text-muted); font-size: 0.85rem; background: rgba(7, 12, 24, 0.95); }
+
+    @media (max-width: 950px) {
+      .hero-grid { grid-template-columns: 1fr; text-align: center; }
+      .hero-btns { justify-content: center; }
+      .nav-center { display: none; }
+      body { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Institucional -->
+  <header>
+    <div class="container nav-wrap">
+      <a href="#" class="brand-logo-left" title="Miguel Camacaro Ediciones">
+        <div class="logo-container">
+          <img src="LogoMCE.png" alt="Miguel Camacaro Ediciones" onerror="this.style.display='none'">
+        </div>
+      </a>
+
+      <nav class="nav-center">
+        <a href="#presentacion">Presentación</a>
+        <a href="#autor">Autor</a>
+        <a href="#herramientas">Herramientas</a>
+        <a href="https://paypal.me/spilimcurso" target="_blank" rel="noopener noreferrer" class="btn btn-donate">☕ Aportar / Donar</a>
+      </nav>
+
+      <a href="#" class="brand-logo-right" title="Mundo Valor">
+        <div class="logo-container">
+          <img src="Mundovalor.png" alt="Mundo Valor" onerror="this.style.display='none'">
+        </div>
+      </a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- PORTADA / HERO -->
+    <section class="hero" id="presentacion">
+      <div class="container hero-grid">
+        <div>
+          <span class="badge-editorial">Suite Tecnológica Profesional</span>
+          <h1 class="hero-title">Herramientas del Valuador <span>Interactivas</span></h1>
+          <p class="hero-lead">
+            Conjunto de simuladores, calculadoras especializadas y modelos normativos avanzados para la tasación industrial, inmobiliaria y auditoría pericial.
+          </p>
+          <div class="hero-btns">
+            <a href="#herramientas" class="btn btn-red">⚙️ Explorar Herramientas</a>
+            <a href="https://paypal.me/spilimcurso" target="_blank" rel="noopener noreferrer" class="btn btn-donate">☕ Aportar al Proyecto</a>
+          </div>
+        </div>
+
+        <div class="hero-banner-card">
+          <img src="Foto-Portada.jpg" alt="Herramientas del Valuador" onerror="this.onerror=null; this.src='LogoMCE.png';">
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: PRESENTACIÓN DEL AUTOR -->
+    <section class="section-block" id="autor">
+      <div class="container">
+        <div class="section-head">
+          <h2>Presentación del Autor</h2>
+        </div>
+        <div class="author-card-centered">
+          <div class="author-photo-xl">
+            <img src="Foto_autor.png" alt="Prof. Ing. Miguel Camacaro Pérez, M.Sc." onerror="this.style.display='none'">
+          </div>
+          <h3>Prof. Ing. Miguel Camacaro Pérez, M.Sc.</h3>
+          <div class="subtitle">Ingeniero Civil - Tasador • Especialista en Ingeniería Legal y de Valuación</div>
+          <p class="author-quote">
+            «El profesor Miguel Camacaro Pérez cuenta con más de 40 años de trayectoria profesional en ingeniería y valuación de activos. Es autor, editor y traductor de libros técnicos, y se destaca como pionero internacional en la integración de la ciencia de la valuación, ciencia de datos e inteligencia artificial generativa aplicada a la tasación.»
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: LISTADO DE HERRAMIENTAS -->
+    <section class="section-block" id="herramientas">
+      <div class="container">
+        <div class="section-head">
+          <h2>Catálogo de Simuladores y Aplicaciones</h2>
+        </div>
+
+        <div class="catalog-grid" id="herramientasGrid">
+          <!-- Generado dinámicamente por JavaScript -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p><strong>Escuela de Valuación Miguel Camacaro [EVMC]</strong> — © 2026 Miguel Camacaro Ediciones & Mundo Valor</p>
+      <p style="margin-top:0.4rem; opacity:0.7;">Suite de Herramientas Digitales para el Valuador Profesional.</p>
+    </div>
+  </footer>
+
+  <script>
+    const herramientasData = [
+      { id: 1, title: "Simulador de maquinaria - Heideck", url: "https://mundo-valor.github.io/Simulamaq-heideck2026", cover: "1. Herramienta.jpg", desc: "Simulador interactivo del procedimiento propuesto por Erich Heideck para estimar el valor actual de maquinaria e instalaciones." },
+      { id: 2, title: "Valor de maquinaria y equipos (Decreto 0941.2026)", url: "https://mundo-valor.github.io/maquinaria-09412026", cover: "2. Herramienta.jpg", desc: "Informe técnico de cálculo según el Anexo Técnico del IGAC (Resolución 0941 de 2026)." },
+      { id: 3, title: "Estimador de valores actuales", url: "https://mundo-valor.github.io/const-maq.d0912026", cover: "3. Herramienta.jpg", desc: "Herramienta de estimación de valores actuales para construcciones y maquinaria y equipo." },
+      { id: 4, title: "Modelado y comparativa de métodos de valuación", url: "https://mundo-valor.github.io/docesolucionesmaquinas/", cover: "4. Herramienta.jpg", desc: "Plataforma interactiva para la determinación del valor actual aplicando simultáneamente 12 metodologías normativas." },
+      { id: 5, title: "Plataforma de valuación industrial de máquinas y equipos", url: "https://mundo-valor.github.io/maquinasequipos-5metodos/", cover: "5. Herramienta.jpg", desc: "Modelo de tasación con nacionalización, métodos de depreciación y dictamen pericial completo." },
+      { id: 6, title: "Módulo especial: Auténtico Criterio Heideck", url: "https://mundo-valor.github.io/maquina-moduloheideck100/", cover: "6. Herramienta.jpg", desc: "Valuación analítica de maquinaria considerando vida útil, esfuerzo operativo y corrección por jornada." },
+      { id: 7, title: "Plataforma de valuación industrial (+ Heidecke)", url: "https://mundo-valor.github.io/maquinas-6metodosheideck/", cover: "7. Herramienta.jpg", desc: "Solución integral de valuación industrial incorporando métodos estadísticos y factores de ajuste normativos." },
+      { id: 8, title: "Test de rigor Científico y Normativo", url: "https://mundo-valor.github.io/prueba-conocimientos-RHD02492026/", cover: "8. Herramienta.jpg", desc: "Evaluación diagnóstica sobre las inconsistencias y precisiones matemáticas en la Depreciación Ross-Heideck." },
+      { id: 9, title: "Valor del inmueble según el Decreto 0941.2026", url: "https://mundo-valor.github.io/valuacionintegral-costoRH", cover: "9. Herramienta.jpg", desc: "Valuación inmobiliaria integral: Método del Costo (Terreno + Construcción con Depreciación Ross-Heideck)." },
+      { id: 10, title: "Valor de maquinaria y equipos (Alt)", url: "https://mundo-valor.github.io/maquinaria-09412026", cover: "10. Herramienta.jpg", desc: "Solución alternativa de cálculo según el Anexo Técnico del IGAC (Resolución 0941 de 2026)." },
+      { id: 12, title: "Método de la renta", url: "https://mundo-valor.github.io/metodorenta-d09412026", cover: "11. Herramienta.jpg", desc: "Aplicación del método de capitalización de rentas conforme a las normativas vigentes." },
+      { id: 13, title: "Aplicando el método Ross-Heideck", url: "https://mundo-valor.github.io/metodo-ross-heideck2026", cover: "12. Herramienta.jpg", desc: "Cuestionario y explicativo detallado del procedimiento original de Ross-Heideck." },
+      { id: 14, title: "Auditoría Metodología Ross-Heideck", url: "https://mundo-valor.github.io/auditoria-RH09412026", cover: "13. Herramienta.jpg", desc: "Herramienta de revisión y auditoría técnica para cálculos basados en la metodología Ross-Heideck." },
+      { id: 15, title: "Aplicación del método contributivo", url: "https://mundo-valor.github.io/metodo-contributivo", cover: "14. Herramienta.jpg", desc: "Simulador práctico para el desglose y aplicación del método contributivo en inmuebles." },
+      { id: 16, title: "Aplicación del método evolutivo", url: "https://mundo-valor.github.io/m-todoevolutivo/", cover: "15. Herramienta.jpg", desc: "Plataforma de cálculo y estimación utilizando el método evolutivo para tasación inmobiliaria." },
+      { id: 17, title: "Método Participativo", url: "https://mundo-valor.github.io/metodo-participativorural/", cover: "16. Herramienta.jpg", desc: "Herramienta especializada para la valuación de predios rurales bajo el enfoque participativo." },
+      { id: 18, title: "Atipicómetro inmobiliario", url: "https://mundo-valor.github.io/atipicometro_inmobiliario/", cover: "17. Herramienta.jpg", desc: "Calculadora estadística para la detección y corrección de valores atípicos en muestras de mercado." },
+      { id: 19, title: "Módulo de Estadística Inferencial", url: "https://mundo-valor.github.io/modoloest-inferencial/", cover: "18. Herramienta.jpg", desc: "Aplicación de ciencia de datos y estadística inferencial para análisis valuatorios avanzados." }
+    ];
+
+    function renderHerramientas() {
+      const grid = document.getElementById('herramientasGrid');
+      if (grid) {
+        grid.innerHTML = '';
+        herramientasData.forEach(item => {
+          const card = document.createElement('div');
+          card.className = 'catalog-card';
+          card.innerHTML = `
+            <span class="item-badge">Herramienta ${item.id}</span>
+            <div class="card-thumbnail">
+              <img src="${item.cover}" alt="${item.title}" onerror="this.onerror=null; this.src='LogoMCE.png';">
+            </div>
+            <h3>${item.title}</h3>
+            <p>${item.desc}</p>
+            <div class="card-footer" style="width:100%;">
+              <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="btn btn-red" style="width:100%; justify-content:center;">🚀 Abrir Herramienta</a>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      }
+    }
+
+    window.onload = () => {
+      renderHerramientas();
+    };
+  </script>
+</body>
+</html>
